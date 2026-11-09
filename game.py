@@ -1,31 +1,52 @@
 #!/usr/bin/env python3
+from utils import get_random_word
 
-Utils = __import__('utils').Utils
 
 class HangmanGame():
-    def __init__(self, word="TITANIC", guessed_letters=[], max_errors=6, errors=0):
-        self.word = Utils.get_random_word("wordlist.txt")
+    def __init__(self):
+        self.word = get_random_word()
         self.guessed_letters = []
-        self.max_errors = max_errors
-        self.errors = errors
+        self.max_errors = 6
+        self.errors = 0
+        self.processed_letters = [] # guarda todas las letras jugadas
 
     def display_progress(self):
-        self.__display = []
-        if self.guessed_letters == []:
-            for f in range (len(self.word)):
-                self.__display.append("_")
-        elif self.len(guessed_letters) > 0:
-            self.__display = guessed_letters
-        return self.__display
+        '''para mostrar el estado actual de la palabra (por ejemplo, "_ _ e _ _ a _ _").'''
+        palabra = ""
+        for letra in self.word:
+            if letra in self.guessed_letters:
+                palabra = palabra + letra + " "
+            elif letra.isalpha() == False:
+                palabra = palabra + letra + " "
+            else:
+                palabra = palabra + "_ "
+        return palabra.strip().lower()
+        
+    def process_guess(self, letter):
+        self.letter = letter.strip().lower()
+        if self.letter.isalpha() != True or len(self.letter) != 1:
+            return input("el valor ingresado no es correcto, debe ser exactamente una letra. Reintenta. presiona [Enter]")
+             
+        if self.letter in self.processed_letters:
+            return input("ya jugaste esta letra. Reintenta. presiona [Enter]")
 
-    def guessed_letters(self):
-        self.letra = input("ingrese letra: ")
-        for f in self.word:
-            if letra == self.display[f]:
-                self._display[f]=letra
+        self.processed_letters.append(self.letter)
 
+        if self.letter in self.word:
+            self.guessed_letters.append(self.letter)
+            return input(f"¡Bien! Acertaste. Presiona [Enter] para continuar")
+        else:
+            self.errors += 1
+            return input(f"La letra {self.letter} no forma parte de la palabra. Reintenta. presiona [Enter]")
 
-juego = HangmanGame()
-tablero = juego.display_progress()
-print (tablero)
+    def is_lost(self):
+        if self.errors >= self.max_errors:
+            return True
+        else:
+            return False    
 
+    def is_won(self):
+        if "_" not in self.display_progress():
+            return True
+        else:
+            return False

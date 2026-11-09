@@ -1,0 +1,12 @@
+Arbol
+Perro
+Gato
+Loro
+Jirafa
+Libro
+tenedor
+silla
+Mesa
+Mate
+Termo
+Bombilla
