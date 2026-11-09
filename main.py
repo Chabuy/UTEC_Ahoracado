@@ -1,25 +1,35 @@
 #!/usr/bin/env python3
-from utils import get_random_word, get_filename, get_category_name, limpiar_pantalla
+"""Punto de entrada principal para ejecutar el juego del Ahorcado (Hangman)."""
+
+from utils import get_filename, get_category_name, limpiar_pantalla, CATEGORIAS
 from game import HangmanGame
 
-
-
-
+# -------------------------------------------------------------
+# 1. Menú de selección y validación de categoría
+# -------------------------------------------------------------
 while True:
     limpiar_pantalla()
     print("    HANGMAN GAME")
     print("=" * 20 + "\n")
-    print (" Categorias: \n A-Palabras cortas (fácil)  \n B-Palabras largas (intermedio) \n C-Peliculas (difícil)")
+    print("Categorias:")
+    for clave, datos in CATEGORIAS.items():
+        print(f" {clave} - {datos['nombre']}")
     print("=" * 20 + "\n")
     opcion =  input("elija una categoria para comenzar: ").strip().upper()
 
     if get_filename(opcion) is not None:
         break
     input("el valor elegido no es correcto. Presiona [Enter] y Reintenta.")
-    
+
+# -------------------------------------------------------------
+# 2. Inicialización de la partida
+# -------------------------------------------------------------   
 partida = HangmanGame()
 categoria = get_category_name()
 
+# -------------------------------------------------------------
+# 3. Bucle principal de juego
+# -------------------------------------------------------------
 while True:  
     limpiar_pantalla()
     print("    HANGMAN GAME")
@@ -32,7 +42,8 @@ while True:
 
     letra = input("Ingresa una letra y presiona la tecla [Enter]: ").strip().lower()
     partida.process_guess(letra)
-    
+
+    # Verificación de condición de derrota
     if partida.is_lost() == True:
         limpiar_pantalla()
         print("    HANGMAN GAME")
@@ -53,7 +64,8 @@ while True:
         print (f"La palabra era: {partida.word}")
         input (f"Presiona [Enter] para continuar ")
         break
-    
+
+     # Verificación de condición de victoria
     if partida.is_won() == True:
         limpiar_pantalla()
         print("    HANGMAN GAME")
