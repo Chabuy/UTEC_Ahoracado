@@ -9,7 +9,7 @@ while True:
     limpiar_pantalla()
     print("    HANGMAN GAME")
     print("=" * 20 + "\n")
-    print (" Categorias: \n A-Palabras cortas  \n B-Palabras largas")
+    print (" Categorias: \n A-Palabras cortas (fácil)  \n B-Palabras largas (intermedio) \n C-Peliculas (difícil)")
     print("=" * 20 + "\n")
     opcion =  input("elija una categoria para comenzar: ").strip().upper()
 

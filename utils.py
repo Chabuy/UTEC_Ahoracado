@@ -5,8 +5,9 @@ import os
 selected_filename= "wordlist_1.txt"
 
 CATEGORIAS = {
-    "A": {"nombre": "Palabras cortas", "archivo": "wordlist_1.txt"},
-    "B": {"nombre": "Palabras largas", "archivo": "wordlist_2.txt"},
+    "A": {"nombre": "Palabras cortas (fácil)", "archivo": "wordlist_1.txt"},
+    "B": {"nombre": "Palabras largas (intermedio)", "archivo": "wordlist_2.txt"},
+    "C": {"nombre": "Peliculas (dificil)", "archivo": "wordlist_3.txt"},
 }
 
 def get_filename(opcion):
